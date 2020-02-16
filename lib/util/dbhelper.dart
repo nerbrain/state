@@ -33,12 +33,13 @@ class DbHelper {
   static Database _db;
 
   Future <Database> get db async {
-    if (_db == null){
+    if (_db == null) {
       _db = await initializedDb();
     }
 
     return _db;
   }
+
   //Initialize the database
 
   Future<Database> initializedDb() async {
@@ -49,23 +50,23 @@ class DbHelper {
   }
 
   //create database table
-  void _createDb(Database db, int version) async{
+  void _createDb(Database db, int version) async {
     await db.execute(
-      "CREATE TABLE $tblDocs($docId INTEGER PRIMARY KEY, $docTitle TEXT,"
-          + "$docExpiration TEXT, " +
-        "$fqYear INTEGER, $fqHalfYear INTEGER, $fqQuarter INTEGER, " +
-        "$fqMonth INTEGER"
+        "CREATE TABLE $tblDocs($docId INTEGER PRIMARY KEY, $docTitle TEXT,"
+            + "$docExpiration TEXT, " +
+            "$fqYear INTEGER, $fqHalfYear INTEGER, $fqQuarter INTEGER, " +
+            "$fqMonth INTEGER"
     );
   }
 
   //Insert a new doc
-  Future<int> insertDoc(Doc doc) async{
+  Future<int> insertDoc(Doc doc) async {
     var r;
 
     Database db = await this.db;
-    try{
+    try {
       r = await db.insert(tblDocs, doc.toMap());
-    } catch(e){
+    } catch (e) {
       debugPrint("insertDoc:" + e.toString());
     }
 
@@ -73,17 +74,18 @@ class DbHelper {
   }
 
   //get the list of docs
-  Future<List> getDocs() async{
+  Future<List> getDocs() async {
     Database db = await this.db;
     var r = await db.rawQuery(
-      "SELECT * FROM $tblDocs ORDER BY $docExpiration ASC");
+        "SELECT * FROM $tblDocs ORDER BY $docExpiration ASC");
     return r;
   }
 
   //gets a doc based on the id
-  Future<List> getDoc(int id) async{
+  Future<List> getDoc(int id) async {
     Database db = await this.db;
     var r = await db.rawQuery(
-        "SELECT * FROM $tblDocs WHERE $docId = "+ id.toString() + "");
+        "SELECT * FROM $tblDocs WHERE $docId = " + id.toString() + "");
     return r;
+  }
 }
