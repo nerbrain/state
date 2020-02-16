@@ -88,4 +88,55 @@ class DbHelper {
         "SELECT * FROM $tblDocs WHERE $docId = " + id.toString() + "");
     return r;
   }
+
+  //gets a doc based on a string payload
+  Future<List> getDocFromStr(String payload) async{
+    List<String> p = payload.split("|");
+    if(p.length ==2){
+      Database db = await this.db;
+      var r = await db.rawQuery(
+        "SELCET * FROM $tblDocs WHERE $docId = " + p[0] +
+          "AND $docExpiration = '" + p[1] + "'");
+      return r;
+    }
+    else
+      return null;
+  }
+
+  //Get the number of docs
+  Future<int> getDocsCount() async {
+    Database db = await this.db;
+    var r = Sqflite.firstIntValue(
+      await db.rawQuery("SELECT COUNT(*) FROM $tblDocs")
+    );
+    return r;
+
+  }
+
+  //get the max document id available on the database
+  Future<int> getMaxId() async {
+    Database db = await this.db;
+    var r = Sqflite.firstIntValue(
+      await db.rawQuery("SELECT MAX(id) FROM $tblDocs")
+    );
+    return r;
+  }
+
+  //update a doc
+  Future<int> updateDoc(Doc doc) async{
+    var db = await this.db;
+    var r = await db.update(tblDocs, doc.toMap(),
+        where: "$docId = ?", whereArgs: [doc.id]);
+    return r;
+  }
+
+  //Delete all docs.
+  Future<int> deleteRows(String tbl) async{
+    var db = await this.db;
+    int r = await db.rawDelete("DELETE FROM $tbl");
+    return r;
+  }
+
+
+
 }
