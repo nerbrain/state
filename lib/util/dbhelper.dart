@@ -130,6 +130,16 @@ class DbHelper {
     return r;
   }
 
+
+  //Delete a doc
+
+  Future<int> deleteDoc(int id) async{
+    var db = await this.db;
+    int r = await db.rawDelete(
+      "DELETE FROM $tblDocs WHERE $docId = $id");
+    return r;
+  }
+
   //Delete all docs.
   Future<int> deleteRows(String tbl) async{
     var db = await this.db;
