@@ -14,7 +14,7 @@ class Doc
   Doc(this.title, this.expiration, this.fqYear,
       this.fqHalfYear, this.fqQuarter, this.fqMonth);
 
-  Doc.withId(this.id, this.title, this.fqMonth,
+  Doc.withId(this.id, this.expiration, this.title, this.fqYear,
       this.fqHalfYear, this.fqQuarter, this.fqMonth);
 
   //writing data to database

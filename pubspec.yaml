@@ -26,6 +26,8 @@ dependencies:
   intl:
   sqflite :
   path_provider:
+  flutter_masked_text:
+  flutter_datetime_picker:
 
 dev_dependencies:
   flutter_test:
