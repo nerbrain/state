@@ -83,6 +83,7 @@ class DocDetailState extends State<DocDetail>{
         if (widget.doc.id == -1){
           return;
         }
+
         await _deleteDoc(widget.doc.id);
     }
   }
@@ -92,7 +93,7 @@ class DocDetailState extends State<DocDetail>{
     Navigator.pop(context, true);
   }
 
-  void saveDoc(){
+  void _saveDoc(){
     widget.doc.title = titleCtrl.text;
     widget.doc.expiration = expirationCtrl.text;
 
@@ -120,9 +121,9 @@ class DocDetailState extends State<DocDetail>{
     final FormState form = _formKey.currentState;
 
     if(!form.validate()){
-      showMessage('some data is invalid. Please correct.');
+      showMessage('Some data is invalid. Please correct.');
     } else{
-      saveDoc();
+      _saveDoc();
     }
   }
 

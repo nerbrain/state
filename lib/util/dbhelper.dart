@@ -55,7 +55,7 @@ class DbHelper {
         "CREATE TABLE $tblDocs($docId INTEGER PRIMARY KEY, $docTitle TEXT,"
             + "$docExpiration TEXT, " +
             "$fqYear INTEGER, $fqHalfYear INTEGER, $fqQuarter INTEGER, " +
-            "$fqMonth INTEGER"
+            "$fqMonth INTEGER)"
     );
   }
 
@@ -95,7 +95,7 @@ class DbHelper {
     if(p.length ==2){
       Database db = await this.db;
       var r = await db.rawQuery(
-        "SELCET * FROM $tblDocs WHERE $docId = " + p[0] +
+        "SElECT * FROM $tblDocs WHERE $docId = " + p[0] +
           "AND $docExpiration = '" + p[1] + "'");
       return r;
     }
